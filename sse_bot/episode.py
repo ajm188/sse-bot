@@ -1,12 +1,4 @@
-import re
-
 from frontmatter import Frontmatter
-
-
-# I'm going to assume that the "and" followed by a capital is the delineation
-# between the topics in the show title, because I can't come up with a better
-# way
-TOPIC_DIVIDER = re.compile(r" and [A-Z]")
 
 
 class Episode(object):
@@ -19,10 +11,9 @@ class Episode(object):
         self.title = self.data["attributes"]["title"]
         parts = self.title.split(": ")
         self.show_number[0]
-        topic_part = parts[2]
-        match = TOPIC_DIVIDER.search(topic_part)
-        self.first_topic = topic_part[: match.span()[0]]
-        self.second_topic = topic_part[match.span()[1] - 1 :]
+        topic_parts = [part.strip().capitalize() for part in parts[2].split(" and ")]
+        self.first_topic = topic_parts[0]
+        self.second_topic = topic_parts[1]
 
         body = self.data["body"]
         body_parts = body.split("\n\n")

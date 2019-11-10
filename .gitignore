@@ -1,0 +1,12 @@
+# dev/test caches
+.tox
+__pycache__
+*.pyc
+
+# dev virtualenv
+venv
+
+# package build artifacts
+*.egg-info
+build/
+dist/
